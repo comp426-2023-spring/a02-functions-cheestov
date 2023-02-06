@@ -2,7 +2,10 @@
 
 import minimist from 'minimist';
 import process from 'process';
+import moment from 'moment-timezone'
 
+
+const timezone = moment.tz.guess();
 
 
 var args = minimist(process.argv.slice(2), {

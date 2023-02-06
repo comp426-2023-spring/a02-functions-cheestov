@@ -18,5 +18,6 @@
   "bin": {
     "galosh.js": "./cli.js"
   },
+  "type": "module",
   "homepage": "https://github.com/comp426-2023-spring/a02-functions-cheestov#readme"
 }

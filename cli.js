@@ -7,8 +7,25 @@ import process from 'process';
 
 var args = minimist(process.argv.slice(2), {
     boolean: "h",
-    default: {h: false}, 
+    integer: "n",
+    integer: "s",
+    integer: "e",
+    integer: "w",
+    string: "z",
+    integer: "d",
+    boolean: "j",
+    default: {
+        h: false,
+        n: null,
+        s: null,
+        e: null,
+        w: null,
+        d: null,
+        z: null
+    }, 
 });
+
+console.log(args);
 
 if (args.h) {
     console.log("Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE");

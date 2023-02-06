@@ -41,3 +41,11 @@ if (args.h) {
     process.exit(0)
 }
 
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.91&longitude=79.05&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York');
+
+//https://api.open-meteo.com/v1/forecast?latitude=79.52&longitude=13.41&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York
+
+const data = await response.json();
+
+console.log(data);
+

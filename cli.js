@@ -10,6 +10,7 @@ const timezone = moment.tz.guess();
 var lattitude = 0;
 var longitude = 0;
 
+console.log(timezone);
 
 var args = minimist(process.argv.slice(2), {
     boolean: "h",
@@ -26,7 +27,7 @@ var args = minimist(process.argv.slice(2), {
         s: null,
         e: null,
         w: null,
-        d: null,
+        d: 1,
         z: null
     }, 
 });
@@ -67,15 +68,25 @@ if (args.e == null) {
     lattitude = args.e;
 }
 
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lattitude + '&longitude=' + longitude + '&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York');
+if (args.z != null) {
+    timezone = args.z;
+}
+
+const country = timezone.substring(0, timezone.indexOf("/"));
+const city = timezone.substring(timezone.indexOf('/') + 1, timezone.length);
+console.log(country + '/' + city);
+
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lattitude + '&longitude=' + longitude + '&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=' + country + '%2F' + city);
 
 //https://api.open-meteo.com/v1/forecast?latitude=79.52&longitude=13.41&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York
 
 const data = await response.json();
 
-if (args.j = true) {
-    console.log(response);
-    process.exit(0);
-}
-console.log(data);
+console.log(data.daily.precipitation_hours[0]);
+
+//if (args.j = true) {
+//    console.log(response);
+//    process.exit(0);
+//}
+//console.log(data);
 

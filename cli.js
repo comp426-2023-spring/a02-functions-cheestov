@@ -7,6 +7,9 @@ import moment from 'moment-timezone'
 
 const timezone = moment.tz.guess();
 
+var lattitude = 0;
+var longitude = 0;
+
 
 var args = minimist(process.argv.slice(2), {
     boolean: "h",
@@ -41,11 +44,38 @@ if (args.h) {
     process.exit(0)
 }
 
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.91&longitude=79.05&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York');
+
+if (args.n == null) {
+    if (args.s != null) {
+        lattitude = args.s;
+    }
+} else if (args.s != null) {
+    console.log("ERROR: cannot specify LATTITUDE twice.");
+    process.exit(1);
+} else {
+    lattitude = args.n;
+}
+
+if (args.e == null) {
+    if (args.w != null) {
+        longitude = args.s;
+    }
+} else if (args.w != null) {
+    console.log("ERROR: cannot specify LONGITUDE twice.");
+    process.exit(1);
+} else {
+    lattitude = args.e;
+}
+
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lattitude + '&longitude=' + longitude + '&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York');
 
 //https://api.open-meteo.com/v1/forecast?latitude=79.52&longitude=13.41&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York
 
 const data = await response.json();
 
+if (args.j = true) {
+    console.log(response);
+    process.exit(0);
+}
 console.log(data);
 

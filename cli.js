@@ -2,7 +2,8 @@
 
 import minimist from 'minimist';
 import process from 'process';
-import moment from 'moment-timezone'
+import moment from 'moment-timezone';
+import fetch from "node-fetch";
 
 var timezone = moment.tz.guess();
 

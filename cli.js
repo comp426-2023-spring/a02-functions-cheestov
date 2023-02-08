@@ -33,6 +33,10 @@ var args = minimist(process.argv.slice(2), {
 });
 
 console.log(args);
+if (args.d > 6 || args.d < 0) {
+    console.log("ERROR: Day option -d must be 0-6.");
+    process.exit(1);
+}
 
 if (args.h) {
     console.log("Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE");
@@ -48,7 +52,7 @@ if (args.h) {
 
 if (args.n == null) {
     if (args.s != null) {
-        lattitude = args.s;
+        lattitude = args.s * -1;
     }
 } else if (args.s != null) {
     console.log("ERROR: cannot specify LATTITUDE twice.");
@@ -59,7 +63,7 @@ if (args.n == null) {
 
 if (args.e == null) {
     if (args.w != null) {
-        longitude = args.s;
+        longitude = args.w * -1;
     }
 } else if (args.w != null) {
     console.log("ERROR: cannot specify LONGITUDE twice.");
@@ -82,11 +86,21 @@ const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' 
 
 const data = await response.json();
 
-console.log(data.daily.precipitation_hours[0]);
 
-//if (args.j = true) {
-//    console.log(response);
-//    process.exit(0);
-//}
-//console.log(data);
+if (args.j == true) {
+    console.log(data);
+    process.exit(0);
+}
 
+
+
+const days = args.d 
+
+
+if (days == 0) {
+  console.log("today.")
+} else if (days > 1) {
+  console.log("in " + days + " days.")
+} else {
+  console.log("tomorrow.")
+}

@@ -77,8 +77,11 @@ const country = timezone.substring(0, timezone.indexOf("/"));
 const city = timezone.substring(timezone.indexOf('/') + 1, timezone.length);
 
 
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lattitude + '&longitude=' + longitude + '&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=' + country + '%2F' + city);
+//const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lattitude + '&longitude=' + longitude + '&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=' + country + '%2F' + city);
 
+const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lattitude + "&longitude=" + longitude + "&timezone=" + country + '%2F' + city + "&daily=precipitation_hours");
+
+//"https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + long + "&timezone=" + current_timezone + "&daily=precipitation_hours"
 //https://api.open-meteo.com/v1/forecast?latitude=35.95&longitude=-78&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=America%2FNew_York
 const data = await response.json();
 

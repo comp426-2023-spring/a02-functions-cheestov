@@ -4,13 +4,10 @@ import minimist from 'minimist';
 import process from 'process';
 import moment from 'moment-timezone'
 
-
 const timezone = moment.tz.guess();
 
 var lattitude = 0;
 var longitude = 0;
-
-console.log(timezone);
 
 var args = minimist(process.argv.slice(2), {
     boolean: "h",
@@ -78,7 +75,7 @@ if (args.z != null) {
 
 const country = timezone.substring(0, timezone.indexOf("/"));
 const city = timezone.substring(timezone.indexOf('/') + 1, timezone.length);
-console.log(country + '/' + city);
+
 
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lattitude + '&longitude=' + longitude + '&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,precipitation_hours&temperature_unit=fahrenheit&timezone=' + country + '%2F' + city);
 
@@ -86,16 +83,19 @@ const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' 
 
 const data = await response.json();
 
-
 if (args.j == true) {
     console.log(data);
     process.exit(0);
 }
 
 
+if (data.daily.precipitation_hours[args.d] == 0) {
+    console.log("You probably won't need your galoshes ");
+} else {
+    console.log("You might need your galoshes ");
+}
 
 const days = args.d 
-
 
 if (days == 0) {
   console.log("today.")

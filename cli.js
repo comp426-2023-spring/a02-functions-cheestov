@@ -4,7 +4,7 @@ import minimist from 'minimist';
 import process from 'process';
 import moment from 'moment-timezone'
 
-const timezone = moment.tz.guess();
+var timezone = moment.tz.guess();
 
 var lattitude = 0;
 var longitude = 0;
@@ -29,7 +29,6 @@ var args = minimist(process.argv.slice(2), {
     }, 
 });
 
-console.log(args);
 if (args.d > 6 || args.d < 0) {
     console.log("ERROR: Day option -d must be 0-6.");
     process.exit(1);

@@ -51,7 +51,7 @@ if (args.n == null) {
     if (args.s != null) {
         lattitude = args.s * -1;
     } else {
-        console.log('Latitude must be in range of -90 to 90°. Given: nan.');
+        console.log('Latitude must be in range');
         process.exit(1);
     }
 } else if (args.s != null) {
@@ -65,12 +65,12 @@ if (args.e == null) {
     if (args.w != null) {
         longitude = args.w * -1;
     } else {
-        console.log('Longitude must be in range of -90 to 90°. Given: nan.');
-        process.exit(1);
+        console.log('Longitude must be in range');
+        process.exit(0);
     }
 } else if (args.w != null) {
     console.log("ERROR: cannot specify LONGITUDE twice.");
-    process.exit(1);
+    process.exit(0);
 } else {
     lattitude = args.e;
 }
